@@ -338,6 +338,14 @@ function getBalanceIndex(/* arr */) {
  */
 function getSpiralMatrix(/* size */) {
   throw new Error('Not implemented');
+  // const array = [];
+  // for (let i = 0; i < size; i += 1) {
+  //   const insideArray = [];
+  //   for (let j = 0; j < size; j += 1) {
+  //     insideArray.push(0);
+  //   }
+  //   array.push(insideArray);
+  // }
 }
 
 /**
@@ -375,6 +383,20 @@ function rotateMatrix(/* matrix */) {
  */
 function sortByAsc(/* arr */) {
   throw new Error('Not implemented');
+  // const result = [];
+  // for (let i = 0; i < arr.length; i += 1) {
+  //   result[i] = arr[i];
+  // }
+  // for (let i = 0; i < result.length - 1; i += 1) {
+  //   for (let j = 0; j < result.length - 1 - i; j += 1) {
+  //     if (result[j] > result[j + 1]) {
+  //       const temp = result[j];
+  //       result[j] = result[j + 1];
+  //       result[j + 1] = temp;
+  //     }
+  //   }
+  // }
+  // return result;
 }
 
 /**
@@ -416,8 +438,41 @@ function shuffleChar(/* str, iterations */) {
  * 321321   => 322113
  *
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const digits = [];
+  let tempNumber = number;
+  while (tempNumber > 0) {
+    digits.unshift(tempNumber % 10);
+    tempNumber = Math.floor(tempNumber / 10);
+  }
+  let i;
+  for (i = digits.length - 2; i >= 0; i -= 1) {
+    if (digits[i] < digits[i + 1]) break;
+  }
+
+  let j;
+  for (j = digits.length - 1; j > i; j -= 1) {
+    if (digits[j] > digits[i]) break;
+  }
+
+  const tempDigit = digits[i];
+  digits[i] = digits[j];
+  digits[j] = tempDigit;
+
+  for (let a = i + 1; a < digits.length - 1; a += 1) {
+    for (let b = a + 1; b < digits.length; b += 1) {
+      if (digits[a] > digits[b]) {
+        const tempSort = digits[a];
+        digits[a] = digits[b];
+        digits[b] = tempSort;
+      }
+    }
+  }
+  let result = '';
+  for (let k = 0; k < digits.length; k += 1) {
+    result += digits[k];
+  }
+  return Number(result);
 }
 
 module.exports = {
